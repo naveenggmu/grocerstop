@@ -1,3 +1,8 @@
+# db.child("names").push({"name":"kevin"})
+# db.child("names").child("name").update({"name":"naveen"})
+# users=db.child("names").child("name").get()
+# print(users.val())
+# print(users.key())
 import pyrebase
 
 config={
