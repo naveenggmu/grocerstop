@@ -33,13 +33,14 @@
         <h3>Enter Shop Details</h3>
         <form action="/addShop" method="post">
             <input type="text" name="name">
+            <input type="text" name="location">
             <button type="submit" class="btn btn-dark">Submit</button>
         </form>
         <br>
-        <form> 
+        <!-- <form> 
             <input type="text" name="name">
             <button type="submit" class="btn btn-dark">Customer</button>
-        </form>
+        </form> -->
         <div class="boxes">
           {% for l in t %}
             <div class="box">{{l}}</div>

@@ -23,7 +23,9 @@ db= firebase.database()
 def enterShopName(request):
     if request.method == 'POST':
         name=request.form['name']
-        db.child("shops").push(name)
+        location=request.form['location']
+        db.child("shops").child(name).update({"location" : location})
         todo=db.child("shops").get()
         to=todo.val()
+        print(todo.key(),todo.val(),to.values())
         return to

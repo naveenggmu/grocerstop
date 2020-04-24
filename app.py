@@ -11,9 +11,10 @@ def index():
 def goto():
     if(request.method=='GET'):
         return render_template('addShop.html')
+
     else:    
         to = enterShopName(request)
-        return render_template('addShop.html', t=to.values())
+        return render_template('addShop.html', t=to)
     
 
 if __name__ == "__main__":
