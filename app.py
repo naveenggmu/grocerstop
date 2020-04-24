@@ -2,10 +2,10 @@ from flask import *
 from functions import *
 
 app=Flask(__name__)
-
 @app.route('/', methods=['GET','POST'])
 def index():
     return render_template('index.html')    
+
 @app.route('/addShop', methods=['GET','POST'])
 def goto():
     if(request.method=='GET'):
