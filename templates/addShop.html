@@ -42,11 +42,8 @@
             <button type="submit" class="btn btn-dark">Customer</button>
         </form> -->
         <div class="boxes">
-          {% for key,value in t.items() %}
-            <div class="box">
-              <p>{{key}}</p>
-              <p>Location: {{value['location']}}</p>
-            </div>
+          {% for l in t%}
+            <div class="box">{{l}}</div>
           {% endfor %}
         </div>
     </div>
