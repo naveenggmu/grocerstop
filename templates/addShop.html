@@ -41,9 +41,13 @@
             <input type="text" name="name">
             <button type="submit" class="btn btn-dark">Customer</button>
         </form> -->
+        {{t}}
         <div class="boxes">
-          {% for l in t%}
-            <div class="box">{{l}}</div>
+          {% for key,values in t.items()%}
+            <div class="box">
+              <p>{{key}}</p>
+              <p>{{values["location"]}}</p>
+            </div>
           {% endfor %}
         </div>
     </div>

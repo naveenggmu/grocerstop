@@ -1,5 +1,6 @@
 from flask import *
 from functions import *
+from collections import OrderedDict
 
 app=Flask(__name__)
 @app.route('/', methods=['GET','POST'])
@@ -9,7 +10,8 @@ def index():
 @app.route('/addShop', methods=['GET','POST'])
 def goto():
     if(request.method=='GET'):
-        return render_template('addShop.html')
+        to=None
+        return render_template('addShop.html',t=to)
 
     else:    
         to = enterShopName(request)
