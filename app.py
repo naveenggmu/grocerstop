@@ -34,7 +34,7 @@ def index():
         db.child("shops").child("names").push(name)
         todo=db.child("shops").get()
         to=todo.val()
-        return render_template('index.html', t=to)
+        return render_template('index.html', t=to.values())
     return render_template('index.html')
 
 if __name__ == "__main__":
