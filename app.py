@@ -30,7 +30,7 @@ app=Flask(__name__)
 def index():
     if request.method == 'POST':
         name=request.form['name']
-        db.child("shops").push(name)
+        db.child("shops").child("names").push(name)
         todo=db.child("shops").get()
         to=todo.val()
         return render_template('index.html', t=to)
