@@ -25,7 +25,8 @@ def enterShopName(request):
         name=request.form['name']
         location=request.form['location']
         db.child("shops").child(name).update({"location" : location})
-        todo=db.child("shops").get()
-        to=todo.val()
-        print(todo.key(),todo.val(),to.values())
+        shops=db.child("shops").get()
+        to=shops.val()
+        for key,value in to.items():
+            print(key,value['location'])
         return to
