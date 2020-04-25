@@ -11,6 +11,12 @@ def index():
 def goto():
     if(request.method=='GET'):
         shops=db.child("shops").get().val()
+        print(shops)
+        for key,values in shops.items():
+            # print(key,values)
+            for keys,valuess in values.items():
+                print(keys,valuess['image'])
+
         return render_template('addShop.html',t=shops)
 
     else:    

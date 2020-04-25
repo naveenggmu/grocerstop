@@ -44,13 +44,15 @@
       <a href="/customerPage"><button type="submit" class="btn btn-dark">Refresh</button> </a>
     <br>
       <div class="boxes">
-        {% for key,values in t.items() %}
-          <div class="box">
-            <img src={{values["image"]}} height="250" width="321" >
-            <p>{{key}}</p>
-            <p><i class="fas fa-map-marker-alt"></i> {{values["location"]}}</p>
-            <i class="fas fa-male"></i>
-          </div>
+        {% for i,j in t.items() %}
+          {% for key,values in j.items() %}
+            <div class="box">
+              <img src={{values["image"]}} height="250" width="321" >
+              <p>{{key}}</p>
+              <p><i class="fas fa-map-marker-alt"></i> {{values["location"]}}</p>
+              <i class="fas fa-male"></i>
+            </div>
+          {% endfor %}
         {% endfor %}
       </div>
     </div>
