@@ -14,13 +14,14 @@ def goto():
         return render_template('addShop.html',t=shops)
 
     else:    
-        to = enterShopName(request)
+        to = enterShopDetails(request)
         return render_template('addShop.html', t=to)
 
 @app.route('/customerPage', methods=['GET','POST'])
 def goto1():
     if(request.method=='GET'):
         shops=db.child("shops").get().val()
+        print(shops)
         return render_template('customerPage.html',t=shops)
     else:
         shops=locationwise(request)
