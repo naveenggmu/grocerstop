@@ -26,22 +26,21 @@ def enterShopDetails(request):
         name=request.form['name']
         location=request.form['location']
         image=request.form['image']
-        db.child("shops").child(name).update({"location" : location, "image": image})
         shops=db.child("shops").get()
+        db.child("shops").push({name : {"location" : location, "image": image}})
         to=shops.val()
-        for key,value in to.items():
-            print(key,value['location'])
         return to
 
 def locationwise(request):
     if request.method == 'POST':
         location=request.form['location']
-    shops=db.child("shops").get()
+    shops=db.child("shops").get().val()
     locationshops=OrderedDict()
 
-    for key,value in shops.val().items():
-        if(value['location']==location):
-            locationshops[key]=value
+    for i,j in shops.items():
+        for key,value in j.items():
+            if(value['location']==location):
+                locationshops[key]=j
     return locationshops
 
     return shops
