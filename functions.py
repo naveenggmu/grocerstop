@@ -26,8 +26,9 @@ def enterShopDetails(request):
         name=request.form['name']
         location=request.form['location']
         image=request.form['image']
+        userid=request.form['id']
         shops=db.child("shops").get()
-        db.child("shops").push({name : {"location" : location, "image": image}})
+        db.child("shops").update({userid:{"name" : name ,"location" : location, "image": image, "people": 0}})
         to=shops.val()
         return to
 
@@ -37,11 +38,28 @@ def locationwise(request):
     shops=db.child("shops").get().val()
     locationshops=OrderedDict()
 
-    for i,j in shops.items():
-        for key,value in j.items():
-            if(value['location']==location):
-                locationshops[key]=j
+
+    for key,value in shops.items():
+        if(value['location']==location):
+            locationshops[key]=value
     return locationshops
 
     return shops
+
+def countchange(request):
+    userid=request.form['userid']
+    countinc=(request.form['countinc'])
+    countdec=(request.form['countdec'])
+    if(countinc==""):
+        countinc=0
+    if(countdec==""):
+        countdec=0
+    details=db.child("shops").child(userid).get().val()
+    count=int(details["people"])
+    print(type(count),count, type(countinc),countinc, type(countdec),countdec)
+    count=count + int(countinc) - int(countdec)
+    if(count<0):
+        count=0
+    db.child("shops").child(userid).update({"people":count})
+
 

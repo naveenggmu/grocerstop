@@ -13,9 +13,7 @@ def goto():
         shops=db.child("shops").get().val()
         print(shops)
         for key,values in shops.items():
-            # print(key,values)
-            for keys,valuess in values.items():
-                print(keys,valuess['image'])
+            print(key,values)
 
         return render_template('addShop.html',t=shops)
 
@@ -33,6 +31,14 @@ def goto1():
         shops=locationwise(request)
         print(shops)
         return render_template('customerPage.html',t=shops)        
+
+@app.route('/addcustomer', methods=['GET','POST'])
+def addcustomers():
+    if(request.method=='GET'):
+        return render_template('addcustomer.html')
+    else:
+        countchange(request)
+        return render_template('addcustomer.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

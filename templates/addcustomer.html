@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+
+<div class="jumbotron">
+    <h3>Shop Queue Details</h3>
+    <form action="/addcustomer" method="post">
+        <input type="text" name="userid" placeholder="userid">
+        <input type="number" name="countinc" placeholder="count increase" >
+        <input type="number" name="countdec" placeholder="count decrease" >
+        
+        <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+</div>
+
+{% endblock %}
+
