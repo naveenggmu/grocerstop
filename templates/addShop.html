@@ -36,6 +36,7 @@
         <form action="/addShop" method="post">
             <input type="text" name="name" placeholder="Shop name">
             <input type="text" name="location" placeholder="location">
+            <input type="text" name="image" placeholder="image link">
             <button type="submit" class="btn btn-dark">Submit</button>
         </form>
         <br>
@@ -45,9 +46,9 @@
         </form> -->
 
         <div class="boxes">
-          {% for key,values in t.items()%}
+          {% for key,values in t.items() %}
             <div class="box">
-              <centre><img src="https://image.shutterstock.com/image-vector/grocery-store-facade-stylish-street-260nw-1033155355.jpg" ></centre>
+              <centre><img src={{values["image"]}} height="250" width="321"></centre>
               <p>{{key}}</p>
               <p>Location: {{values["location"]}}</p>
             </div>

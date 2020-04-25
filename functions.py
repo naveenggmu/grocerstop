@@ -21,11 +21,12 @@ firebase = pyrebase.initialize_app(config)
 
 db= firebase.database()
 # from flask import render_template
-def enterShopName(request):
+def enterShopDetails(request):
     if request.method == 'POST':
         name=request.form['name']
         location=request.form['location']
-        db.child("shops").child(name).update({"location" : location})
+        image=request.form['image']
+        db.child("shops").child(name).update({"location" : location, "image": image})
         shops=db.child("shops").get()
         to=shops.val()
         for key,value in to.items():
