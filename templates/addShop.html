@@ -2,41 +2,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/design.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>addShop</title>
     <script src="https://kit.fontawesome.com/92742d306e.js" crossorigin="anonymous"></script>
-</head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300&display=swap" rel="stylesheet">
+
+  </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         
-    <a class="navbar-brand" href="/"><i class="fas fa-dolly"></i></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="customerPage">CustomerPage <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="addShop">AddShop</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-    </div>
-</nav>
+        <a class="navbar-brand" href="/"><i class="fas fa-dolly"></i></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="customerPage">CustomerPage <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="addShop">AddShop</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
     <div class="jumbotron">
         <h3>Enter Shop Details</h3>
         <form action="/addShop" method="post">
             <input type="text" name="name" placeholder="Shop name">
             <input type="text" name="location" placeholder="location">
-            <input type="text" name="image" placeholder="image link">
             <button type="submit" class="btn btn-dark">Submit</button>
         </form>
         <br>
@@ -46,11 +47,12 @@
         </form> -->
 
         <div class="boxes">
-          {% for key,values in t.items() %}
+          {% for key,values in t.items()%}
             <div class="box">
-              <centre><img src={{values["image"]}} height="250" width="321"></centre>
+              <centre><img src="https://image.shutterstock.com/image-vector/grocery-store-facade-stylish-street-260nw-1033155355.jpg" ></centre>
               <p>{{key}}</p>
-              <p>Location: {{values["location"]}}</p>
+              <p><i class="fas fa-map-marker-alt"></i> {{values["location"]}}</p>
+              <i class="fas fa-male"></i>
             </div>
           {% endfor %}
         </div>

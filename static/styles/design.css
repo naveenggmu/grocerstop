@@ -10,3 +10,6 @@
     display: flex;
     flex-wrap: wrap;
 }
+body{
+    font-family: 'Roboto Condensed', sans-serif;
+}
