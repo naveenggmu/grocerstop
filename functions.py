@@ -4,6 +4,7 @@
 # print(users.val())
 # print(users.key())
 import pyrebase
+from collections import OrderedDict
 
 config={
     "apiKey" : "AIzaSyDYowAfpHnLS5xqujO-hZyrQg2M4IkvJQk",
@@ -30,3 +31,17 @@ def enterShopName(request):
         for key,value in to.items():
             print(key,value['location'])
         return to
+
+def locationwise(request):
+    if request.method == 'POST':
+        location=request.form['location']
+    shops=db.child("shops").get()
+    locationshops=OrderedDict()
+
+    for key,value in shops.val().items():
+        if(value['location']==location):
+            locationshops[key]=value
+    return locationshops
+
+    return shops
+
