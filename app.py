@@ -20,7 +20,8 @@ def goto():
 @app.route('/customerPage', methods=['GET','POST'])
 def goto1():
     if(request.method=='GET'):
-        return render_template('customerPage.html')
+        shops=db.child("shops").get().val()
+        return render_template('customerPage.html',t=shops)
     else:
         shops=locationwise(request)
         print(shops)
