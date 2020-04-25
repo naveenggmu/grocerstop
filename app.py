@@ -10,7 +10,7 @@ def index():
 @app.route('/addShop', methods=['GET','POST'])
 def goto():
     if(request.method=='GET'):
-        to=None
+        to=OrderedDict()
         return render_template('addShop.html',t=to)
 
     else:    
