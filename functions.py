@@ -55,7 +55,7 @@ def countchange(request):
     if(countdec==""):
         countdec=0
     details=db.child("shops").child(userid).get().val()
-    count=int(details["people"])
+    count=int(details['people'])
     print(type(count),count, type(countinc),countinc, type(countdec),countdec)
     count=count + int(countinc) - int(countdec)
     if(count<0):
