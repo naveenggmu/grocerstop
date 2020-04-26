@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    
+       
+    
+    <div class="jumbotron">
+        <h3>Hello Shopkeeper. Kindly enter your id and the products that you have at the moment</h3>
+    <form action="/addProducts" method="post">
+        <div class="form-group row">
+            <label for="userid" class="col-sm-2 col-form-label">UserID</label>
+            <div class="col-sm-5">
+            <input type="text" class="form-control" id="userid" placeholder="Enter" name="userid">
+            </div>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck1" name="diary">
+            <label class="form-check-label" for="gridCheck1">
+            Diary Products
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck2" name="fruits">
+            <label class="form-check-label" for="gridCheck2">
+            Fruits 
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck3" name="vegetables">
+            <label class="form-check-label" for="gridCheck3">
+            Vegetables
+            </label>
+        </div>
+        <p></p>
+        <button type="submit" class="btn btn-dark">Submit</button>
+    </form> 
+    </div>
+    {{ data }}
+
+{% endblock %}

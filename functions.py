@@ -4,6 +4,8 @@
 # print(users.val())
 # print(users.key())
 import pyrebase
+from datetime import datetime
+
 from collections import OrderedDict
 
 config={
@@ -62,4 +64,20 @@ def countchange(request):
         count=0
     db.child("shops").child(userid).update({"people":count})
 
+def addProducts(request):
+    userid = request.form['userid']
+    fruits = request.form.get('fruits')
+    veg = request.form.get('vegetables')
+    diary = request.form.get('diary')
+    if(fruits==None):
+        fruits='off'
+    if(veg==None):
+        veg = 'off'
+    if(diary==None):
+        diary='off'            
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M")
+    db.child("products").update({userid : {'diary': diary,'vegetables': veg,'fruits': fruits,'lastUpdated': dt_string }})
+    data = db.child('products').get().val()
+    return data
 
