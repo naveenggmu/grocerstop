@@ -40,5 +40,13 @@ def addcustomers():
         countchange(request)
         return render_template('addcustomer.html')
 
+@app.route('/addProducts', methods=['GET','POST'])
+def addProd():
+    if(request.method=='GET'):
+        return render_template('addProducts.html')
+    else:
+        data = addProducts(request)
+        return render_template('addProducts.html', data = data)            
+
 if __name__ == "__main__":
     app.run(debug=True)

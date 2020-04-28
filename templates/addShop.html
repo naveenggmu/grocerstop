@@ -26,21 +26,13 @@
                 <p>{{values["name"]}}</p>
                 <p>Location: {{values["location"]}}</p>
               </div> -->
-              <div class="flip-card">
-                <div class="card flip-card-inner" style="width: 18rem;">
-                  <div class="flip-card-front">
-                    <img class="card-img-top" src={{values["image"]}} alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title"><b>{{values["name"]}}</b></h5>
-                      <p><i class="fas fa-map-marker-alt"></i> {{values["location"]}}</p>
-                      <!-- <pre><i class="fas fa-male"> {{values["people"]}}</i></pre> -->
-                      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                    </div>
-                  </div>
-                  <div class="flip-card-back">
-                    flip-card-back
-                  </div>
-
+              <div class="card navcard" style="width: 18rem;">
+                <img class="card-img-top" src={{values["image"]}} alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title"><b>{{values["name"]}}</b></h5>
+                  <p><i class="fas fa-map-marker-alt"></i> {{values["location"]}}</p>
+                  <!-- <pre><i class="fas fa-male"> {{values["people"]}}</i></pre> -->
+                  <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                 </div>
               </div>
             {% endfor %}
