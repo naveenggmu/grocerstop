@@ -20,6 +20,7 @@ config={
 }
 
 firebase = pyrebase.initialize_app(config)
+auth= firebase.auth()
 
 db= firebase.database()
 # from flask import render_template
@@ -57,7 +58,7 @@ def countchange(request):
     if(countdec==""):
         countdec=0
     details=db.child("shops").child(userid).get().val()
-    count=int(details["people"])
+    count=int(details['people'])
     print(type(count),count, type(countinc),countinc, type(countdec),countdec)
     count=count + int(countinc) - int(countdec)
     if(count<0):
@@ -81,3 +82,16 @@ def addProducts(request):
     data = db.child('products').get().val()
     return data
 
+def authentication(request):
+    email=request.form['email']
+    password=request.form['password']
+    try:
+        user=auth.sign_in_with_email_and_password(email,password)
+        return user
+    except:
+        return 0 
+    
+def register(request):
+    email=request.form['email']
+    password=request.form['password']
+    auth.create_user_with_email_and_password(email,password)
