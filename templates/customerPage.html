@@ -1,9 +1,9 @@
-<!-- {% extends 'layout.html' %}
+{% extends 'layout.html' %}
 
 {% block body %}
   
     
-    <!-- <div class="jumbotron"> -->
+    <div class="jumbotron">
       <form action="/customerPage" method='POST'>
           <input type="text" name="location" placeholder="location">
           <button type="submit" class="btn btn-dark">Submit</button>
@@ -15,33 +15,26 @@
       <div class="boxes">
           {% for key,values in t.items() %}
             
-              <div class="box">
-                  <!-- <div class="thecard">
-                    <div class="thefront"> -->
-                      <img  src={{values["image"]}} alt="Card image cap" height="250" width="300">
-                      <h5 class="card-title"><b>{{values["name"]}}</b></h5>
-                      <p><i class="fas fa-map-marker-alt"></i> {{values["location"]}}</p>
-                      <pre><i class="fas fa-male"> {{values["people"]}}</i></pre>
-                      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                      {%
-                        if(values["people"]>20): %}
-                        <p>Estimated Time: 5 mins</p>
-                        {% else: %}
-                        <p>Estimated Time: 0 mins</p>
-                      
-                      {% endif%}
-
-                    </div>
-                    <div class="theback">
-                      hello
-                    </div>
-                  </div>
+            <div class="card box navcard" style="width: 18rem;">
+              <img class="card-img-top" src={{values["image"]}} alt="Card image cap">
+              <div class="card-body">
+                
+                <h5 class="card-title"><b>{{values["name"]}}</b></h5>
+                <p><i class="fas fa-map-marker-alt"></i> {{values["location"]}}</p>
+                <pre><i class="fas fa-male"> {{values["people"]}}</i></pre>
+                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                {%
+                  if(values["people"]>20): %}
+                  <p>Estimated Time: 5 mins</p>
+                  {% else: %}
+                  <p>Estimated Time: 0 mins</p>
+                
+                {% endif%}
               </div>
-
-
+            </div>
           {% endfor %}
       </div>
-  <!-- </div> -->
+    </div>
 
 
-{% endblock %} -->
+{% endblock %}
