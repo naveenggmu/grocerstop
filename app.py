@@ -77,5 +77,27 @@ def addProd():
         data = addProducts(request)
         return render_template('addProducts.html', data = data)            
 
+@app.route('/customerBookingShop/<shopid>',methods=['GET','POST'])
+def custBook(shopid):
+    print("Inside custBook")
+    if(request.method=='GET'):   
+        x,y = custShopBookingDisplay(shopid)
+        data = {'shop_data': y,
+                'shop_products' : x,
+                'shopid': shopid,
+                'bookingStatus': ""}
+        return render_template('customerBookingShop.html',data = data)
+    elif(request.method=='POST'):
+        print("Into elif")
+        bookingstatus(request)
+        x,y = custShopBookingDisplay(shopid)
+        data = {'shop_data': y,
+                'shop_products' : x,
+                'shopid': shopid,
+                'bookingStatus': "Updated"}
+        return render_template('customerBookingShop.html',data = data)    
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)

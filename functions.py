@@ -95,3 +95,19 @@ def register(request):
     email=request.form['email']
     password=request.form['password']
     auth.create_user_with_email_and_password(email,password)
+
+
+def custShopBookingDisplay(shopid):
+    data_products = db.child('products').child(shopid).get().val()
+    data_shop = db.child('shops').child(shopid).get().val()
+    return data_products,data_shop
+
+#LOGIC FOR ADDING SLOT BOOKING WRT TO THE CURRENT TIME SHOULD BE WRITTEN
+#IN bookingstatus()
+def bookingstatus(request):
+    
+    now = datetime.now()
+    date = now.strftime("%d/%m/%Y")
+    print(date)
+    print(request.form['custid'])
+    print(request.form['slotOption'])
