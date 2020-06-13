@@ -278,7 +278,11 @@ def mailGenerator(cust_id,shopid,what_day,timing):
     msg['From'] = "cudamemerror@gmail.com"
 
     msg['To'] = mail_id
+<<<<<<< HEAD
     contents = "Booking confirmed for " + shopid + " on " + date + " at " + str(timing)   
+=======
+    contents = "Booking confirmed for " + shopid + " on " + date + " at " + str(timing)
+>>>>>>> 4d15463703f9a196965807d83b07b9bdf72aa1cd
     msg.set_content(contents)
 
     with open('barcode.png','rb') as f:
