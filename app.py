@@ -5,10 +5,7 @@ from collections import OrderedDict
 app=Flask(__name__)
 @app.route('/', methods=['GET','POST'])
 def mainpage():
-    if request.method=='GET':
-        return render_template('mainpage.html')
-    else:
-        return render_template('mainpage.html')
+    return render_template('mainpage.html')
 
 @app.route('/customerlogin', methods=['GET','POST'])
 def customerlogin():
@@ -30,7 +27,7 @@ def customerregister():
     else:
         register(request)
         print("registered")
-        return redirect(url_for('Customer/customerlogin'))
+        return redirect(url_for('customerlogin'))
 
 @app.route('/test', methods=['GET','POST'])
 def index():
