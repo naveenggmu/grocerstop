@@ -77,12 +77,13 @@ def addProd():
 @app.route('/customerBookingShop/<shopid>',methods=['GET','POST'])
 def custbook(shopid):
     if(request.method=='GET'):
-        currDay,nextDay,data_shop = printingAvailableSlots(shopid)
+        currDay,nextDay,data_shop,cap = printingAvailableSlots(shopid)
         data = {
             'currentDay' : currDay,
             'nextDay' : nextDay,
             'data_shop' : data_shop,
-            'shopid' : shopid
+            'shopid' : shopid,
+            'cap'  : cap
         }
         print("This is shopid ", data['shopid'])
         return render_template('Customer/customerBookingShop.html',data = data)
