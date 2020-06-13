@@ -5,7 +5,12 @@
 # print(users.key())
 import pyrebase
 import pyqrcode
+import png
+import smtplib
+import imghdr
+from email.message import EmailMessage
 from datetime import datetime
+import datetime as das
 
 from collections import OrderedDict
 
@@ -123,13 +128,18 @@ def printingAvailableSlots(shopid):
     currentDay = db.child('realTimeCount').child(shopid).child("currentDay").get().val()
     nextDay = db.child('realTimeCount').child(shopid).child("nextDay").get().val()
     available_currentDay =OrderedDict()
+    now = datetime.now()
+    dt_string = now.strftime("%H:%M")
+    hours,mins = dt_string.split(':')
+    new_time = int(hours + mins)
     for i,j in currentDay.items():
-        if(j['currentCap']<cap):
-            available_currentDay[i] = j
-            
+        if(new_time<int(j['startTime'])):
+            if(j['currentCapacity']<cap):
+                available_currentDay[i] = j
+
     available_nextDay =OrderedDict()
     for i,j in nextDay.items():
-        if(j['currentCap']<cap):
+        if(j['currentCapacity']<cap):
             available_nextDay[i] = j 
 
     data_shop = db.child('shops').child(shopid).get().val()
@@ -137,7 +147,71 @@ def printingAvailableSlots(shopid):
 
 
 
+def confirmBooking(request,shopid):
 
+    what_day = 0
+    print("Going to function")
+    slot_id = request.form.get("slotOption")
+    cust_id = request.form.get("custid")
+    
+    booking_id = "_" + slot_id +  "_" + cust_id + "_"
+    
+    #Increment in realTimeCount
+    curr_count = db.child('realTimeCount').child(shopid).child("currentDay").child(slot_id).child('currentCapacity').get().val()
+    print(curr_count)
+    curr_count+=1
+
+    db.child('realTimeCount').child(shopid).child("currentDay").child(slot_id).update({'currentCapacity' : curr_count})
+
+    db.child('bookings').child(shopid).child("currentDay").child(slot_id).update({booking_id : 0})
+    timing = db.child('realTimeCount').child(shopid).child("currentDay").child(slot_id).child("startTime").get().val()
+
+    QRCodeGenerator(booking_id)
+    mailGenerator(cust_id,shopid,what_day,timing)
+
+def confirmBooking2(request,shopid):
+    
+    what_day = 1
+    print("Going to function")
+    slot_id = request.form.get("slotOption")
+    cust_id = request.form.get("custid")
+    
+    booking_id = "_" + slot_id +  "_" + cust_id + "_"
+    
+    #Increment in realTimeCount
+    curr_count = db.child('realTimeCount').child(shopid).child("nextDay").child(slot_id).child('currentCapacity').get().val()
+    print(curr_count)
+    curr_count+=1
+
+    db.child('realTimeCount').child(shopid).child("nextDay").child(slot_id).update({'currentCapacity' : curr_count})
+
+    db.child('bookings').child(shopid).child("nextDay").child(slot_id).update({booking_id : 0})
+    timing = db.child('realTimeCount').child(shopid).child("nextDay").child(slot_id).child("startTime").get().val()
+    QRCodeGenerator(booking_id)
+    mailGenerator(cust_id,shopid,what_day,timing)   
+
+
+
+def flutterUserVerify(request):
+
+    jso = request.get_json(force = True)
+    key = jso['val']
+    shopid = jso['shop_id']
+    slot_id = key.split('_')[1]
+    x = db.child('bookings').child(shopid).child("currentDay").child(slot_id).child(key).get().val()
+    data = {}
+    if(x==None):
+        data['status'] = False
+        data['info'] = "Invalid Booking"
+    else:
+        if(x==0):
+            data['status'] = True
+            data['info'] = "user verified"
+            db.child('bookings').child(shopid).child("currentDay").child(slot_id).update({booking_id : 1})
+        else:
+            data['status'] = False
+            data['info'] = "user already entered"
+    return data     
 
 
 
@@ -161,14 +235,15 @@ def flutterShopVerify(request):
         passwd = x['password']
 
         actual_pwd = db.child('shops').child(shop_id).child("shopPassword").get().val()
-        print("Shop id ",shop_id)
-        print("passwd ",passwd)
-        
-        print("Actual pwd ",actual_pwd)
+        data = {}
         if(str(actual_pwd) == str(passwd)):
-            return db.child('shops').child(shop_id).get().val()
+            data['details'] = db.child('shops').child(shop_id).get().val()
+            
+            data['status'] = True
+            return data
         else:
-            return "not in db"
+            data['status'] = False
+            return data
     else:
         return "Wrong data"      
 
@@ -178,5 +253,41 @@ def flutterShopVerify(request):
 
 def QRCodeGenerator(content_qr):
     url = pyqrcode.create(content_qr)
-    url.svg('/huca-url.svg', scale=8)
+    url.png('barcode.png',scale = 8)
     
+
+def mailGenerator(cust_id,shopid,what_day,timing):
+    
+    now = datetime.now()
+    date = now.strftime("%d/%m/%Y")
+    if(what_day == 1):
+        
+        today=das.datetime.today()
+        month=today.month
+        year=today.year
+        day=today.day + 1
+        date = das.date(year, month, day).strftime('%d-%m-%Y') 
+
+    mail_id = db.child("customers").child(cust_id).child('email').get().val()
+
+    
+    
+    msg = EmailMessage()
+    
+    msg['Subject'] = "grocerstop Booking Barcode"
+    msg['From'] = "cudamemerror@gmail.com"
+
+    msg['To'] = mail_id
+    contents = "Booking confirmed for " + shopid + " on " + date + " at " + str(timing)
+    msg.set_content(contents)
+
+    with open('barcode.png','rb') as f:
+        file_data =f.read()
+        file_type = imghdr.what(f.name)
+        file_name = "Barcode"
+
+    msg.add_attachment(file_data,maintype='image',subtype='png')
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+        smtp.login("cudamemerror@gmail.com", "ImageClef1@")
+        smtp.send_message(msg)

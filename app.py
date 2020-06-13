@@ -81,10 +81,22 @@ def custbook(shopid):
         data = {
             'currentDay' : currDay,
             'nextDay' : nextDay,
-            'data_shop' : data_shop
-
+            'data_shop' : data_shop,
+            'shopid' : shopid
         }
+        print("This is shopid ", data['shopid'])
         return render_template('Customer/customerBookingShop.html',data = data)
+
+@app.route('/customerBookingShopCurrentDay/<shopid>',methods=['POST'])
+def func2(shopid):
+    confirmBooking(request,shopid)
+    return redirect(url_for('customerlogin'))
+  
+@app.route('/customerBookingShopNextDay/<shopid>',methods=['POST'])
+def func4(shopid):
+
+    confirmBooking2(request,shopid)
+    return redirect(url_for('customerlogin'))  
 
 # def custBook(shopid):
 #     print("Inside custBook")
@@ -120,6 +132,10 @@ def func():
     info = flutterShopVerify(request)
     return info
 
+@app.route('/flutterUserVerify',methods = ['POST'])
+def func3():
+    info = flutterUserVerify(request)
+    return info
 
 
 
