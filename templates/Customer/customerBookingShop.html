@@ -8,30 +8,22 @@ background: linear-gradient(to right, #274046, #E6DADA);  ">
 
 
 
-<<<<<<< HEAD
-<p>----------------------------------</p>
-
-<p>{{data['shop_products']}}</p>
-<div class="jumbotron">
-    <form action="/customerBookingShop/{{data['shopid']}}" method="post">
-=======
     <form action="/customerBookingShopCurrentDay/{{data['shopid']}}" method="post">
->>>>>>> 10f60f5d57bfb96e660ca54b581467040de6bee0
         <div class="form-group">
             <label for="exampleFormControlSelect1">Select Slot for Today</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="slotOption">
+            <!-- <select class="form-control" id="exampleFormControlSelect1" name="slotOption"> -->
                 {%
                     for key,items in data['currentDay'].items():
                         
                     %}
-                    <option value="{{key}}">{{items['startTime']}} - {{ items['endTime']}}</option>
+                    <button type="submit" name ="slotOption"value="{{key}}">{{items['startTime']}} - {{ items['endTime']}}</button>
                 {% endfor %}
-            </select>  
+            <!-- </select>   -->
         </div>
         <input type="text" class="form-control" name="custid" placeholder="Enter Customer ID">
         <div class="container">
             <div class="center">
-                <button type="submit" class="btn btn-dark" style="margin-top: 120px;">Submit</button>
+                <!-- <button type="submit" class="btn btn-dark" style="margin-top: 120px;">Submit</button> -->
             </div>
         </div>
     </form>
@@ -43,20 +35,20 @@ background: linear-gradient(to right, #274046, #E6DADA);  ">
     <form action="/customerBookingShopNextDay/{{data['shopid']}}" method="post">
         <div class="form-group">
             <label for="exampleFormControlSelect2">Select Slot for Tomorrow</label>
-            <select class="form-control" id="exampleFormControlSelect2" name="slotOption">
+            <!-- <select class="form-control" id="exampleFormControlSelect2" name="slotOption"> -->
                 {%
                     for key,items in data['nextDay'].items():
                         
                     %}
-                    <option value="{{key}}">{{items['startTime']}} - {{ items['endTime']}}</option>
+                    <button name="slotOption"value="{{key}}">{{items['startTime']}} - {{ items['endTime']}}</button>
                 {% endfor %}
                
-            </select>     
+            <!-- </select>      -->
         </div>
         <input type="text" class="form-control" name="custid" placeholder="Enter Customer ID">
         <div class="container">
             <div class="center">
-                <button type="submit" class="btn btn-dark" style="margin-top: 120px;">Submit</button>
+                <!-- <button type="submit" class="btn btn-dark" style="margin-top: 120px;">Submit</button> -->
             </div>
         </div>
     </form>
