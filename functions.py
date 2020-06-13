@@ -93,9 +93,12 @@ def authentication(request):
         return 0 
     
 def register(request):
-    email=request.form['email']
-    password=request.form['password']
-    auth.create_user_with_email_and_password(email,password)
+    try:
+        email=request.form['email']
+        password=request.form['password']
+        auth.create_user_with_email_and_password(email,password)
+    except:
+        print("allready registered")
 
 
 def custShopBookingDisplay(shopid):
@@ -112,6 +115,13 @@ def bookingstatus(request):
     print(date)
     print(request.form['custid'])
     print(request.form['slotOption'])
+
+def flutterShopVerify(shopid,passwd):
+    actual_pwd = db.child('shops').child(shopid).child("shopPassword").get().val()
+    if(actual_pwd == passwd):
+        return True
+    else:
+        return False
 
 
 def QRCodeGenerator(content_qr):
