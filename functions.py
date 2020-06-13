@@ -4,6 +4,7 @@
 # print(users.val())
 # print(users.key())
 import pyrebase
+import pyqrcode
 from datetime import datetime
 
 from collections import OrderedDict
@@ -114,3 +115,9 @@ def bookingstatus(request):
     print(date)
     print(request.form['custid'])
     print(request.form['slotOption'])
+
+
+def QRCodeGenerator(content_qr):
+    url = pyqrcode.create(content_qr)
+    url.svg('/huca-url.svg', scale=8)
+    
