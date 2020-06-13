@@ -113,6 +113,13 @@ def bookingstatus(request):
     print(request.form['custid'])
     print(request.form['slotOption'])
 
+def flutterShopVerify(shopid,passwd):
+    actual_pwd = db.child('shops').child(shopid).child("shopPassword").get().val()
+    if(actual_pwd == passwd):
+        return True
+    else:
+        return False
+
 
 def QRCodeGenerator(content_qr):
     url = pyqrcode.create(content_qr)

@@ -99,5 +99,25 @@ def custBook(shopid):
 
 
 
+
+
+
+
+
+
+######################################################### FOR FLUTTER ####################################################
+
+# @app.route('/flutterShopVerify',methods=['GET','POST'])
+# def func():
+#     x,y = flutterShopVerify()
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
