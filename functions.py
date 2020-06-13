@@ -116,12 +116,28 @@ def bookingstatus(request):
     print(request.form['custid'])
     print(request.form['slotOption'])
 
-def flutterShopVerify(shopid,passwd):
-    actual_pwd = db.child('shops').child(shopid).child("shopPassword").get().val()
-    if(actual_pwd == passwd):
-        return True
+def flutterShopVerify(request):
+
+    print("request method")
+    print(request.method)
+    x  = request.get_json(force = True)
+    print("Contents in x")
+    print(x)
+    if(x):
+        shop_id = x['shop_id']
+        passwd = x['password']
+
+        actual_pwd = db.child('shops').child(shop_id).child("shopPassword").get().val()
+        print("Shop id ",shop_id)
+        print("passwd ",passwd)
+        
+        print("Actual pwd ",actual_pwd)
+        if(str(actual_pwd) == str(passwd)):
+            return db.child('shops').child(shop_id).get().val()
+        else:
+            return "not in db"
     else:
-        return False
+        return "Wrong data"        
 
 
 def QRCodeGenerator(content_qr):

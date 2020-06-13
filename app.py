@@ -104,9 +104,10 @@ def custBook(shopid):
 
 ######################################################### FOR FLUTTER ####################################################
 
-# @app.route('/flutterShopVerify',methods=['GET','POST'])
-# def func():
-#     x,y = flutterShopVerify()
+@app.route('/flutterShopVerify',methods=['POST'])
+def func():
+    info = flutterShopVerify(request)
+    return info
 
 
 
