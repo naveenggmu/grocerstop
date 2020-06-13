@@ -92,9 +92,12 @@ def authentication(request):
         return 0 
     
 def register(request):
-    email=request.form['email']
-    password=request.form['password']
-    auth.create_user_with_email_and_password(email,password)
+    try:
+        email=request.form['email']
+        password=request.form['password']
+        auth.create_user_with_email_and_password(email,password)
+    except:
+        print("allready registered")
 
 
 def custShopBookingDisplay(shopid):

@@ -25,14 +25,17 @@
                 <a href="/customerBookingShop/{{ key }}"><button class="btn btn-dark">More</button></a> 
                 
                 <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                {%
-                  if(values["people"]>20): %}
+                {% if(values["people"]>20): %}
                   <p>Estimated Time: 5 mins</p>
                   {% else: %}
                   <p>Estimated Time: 0 mins</p>
                 
                 {% endif%}
                 
+                <div class="mask">  
+                  <h2>Title</h2>  
+                  <p>Your Text</p>  
+                      <a href="#" class="info">Read More</a>
               </div>
             </div>
           {% endfor %}
