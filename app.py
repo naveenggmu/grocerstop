@@ -75,24 +75,35 @@ def addProd():
         return render_template('Shopkeeper/addProducts.html', data = data)            
 
 @app.route('/customerBookingShop/<shopid>',methods=['GET','POST'])
-def custBook(shopid):
-    print("Inside custBook")
-    if(request.method=='GET'):   
-        x,y = custShopBookingDisplay(shopid)
-        data = {'shop_data': y,
-                'shop_products' : x,
-                'shopid': shopid,
-                'bookingStatus': ""}
+def custbook(shopid):
+    if(request.method=='GET'):
+        currDay,nextDay,data_shop = printingAvailableSlots(shopid)
+        data = {
+            'currentDay' : currDay,
+            'nextDay' : nextDay,
+            'data_shop' : data_shop
+
+        }
         return render_template('Customer/customerBookingShop.html',data = data)
-    elif(request.method=='POST'):
-        print("Into elif")
-        bookingstatus(request)
-        x,y = custShopBookingDisplay(shopid)
-        data = {'shop_data': y,
-                'shop_products' : x,
-                'shopid': shopid,
-                'bookingStatus': "Updated"}
-        return render_template('Customer/customerBookingShop.html',data = data)    
+
+# def custBook(shopid):
+#     print("Inside custBook")
+#     if(request.method=='GET'):   
+#         x,y = custShopBookingDisplay(shopid)
+#         data = {'shop_data': y,
+#                 'shop_products' : x,
+#                 'shopid': shopid,
+#                 'bookingStatus': ""}
+#         return render_template('Customer/customerBookingShop.html',data = data)
+#     elif(request.method=='POST'):
+#         print("Into elif")
+#         bookingstatus(request)
+#         x,y = custShopBookingDisplay(shopid)
+#         data = {'shop_data': y,
+#                 'shop_products' : x,
+#                 'shopid': shopid,
+#                 'bookingStatus': "Updated"}
+#         return render_template('Customer/customerBookingShop.html',data = data)    
 
 
 

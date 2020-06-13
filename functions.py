@@ -116,6 +116,38 @@ def bookingstatus(request):
     print(request.form['custid'])
     print(request.form['slotOption'])
 
+def printingAvailableSlots(shopid):
+
+    cap = db.child('realTimeCount').child(shopid).child("CapacityPerSlot").get().val()
+    currentDay = db.child('realTimeCount').child(shopid).child("currentDay").get().val()
+    nextDay = db.child('realTimeCount').child(shopid).child("nextDay").get().val()
+    available_currentDay =OrderedDict()
+    for i,j in currentDay.items():
+        if(j['currentCap']<cap):
+            available_currentDay[i] = j
+            
+    available_nextDay =OrderedDict()
+    for i,j in nextDay.items():
+        if(j['currentCap']<cap):
+            available_nextDay[i] = j 
+
+    data_shop = db.child('shops').child(shopid).get().val()
+    return available_currentDay,available_nextDay,data_shop
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def flutterShopVerify(request):
 
     print("request method")
@@ -137,7 +169,10 @@ def flutterShopVerify(request):
         else:
             return "not in db"
     else:
-        return "Wrong data"        
+        return "Wrong data"      
+
+
+
 
 
 def QRCodeGenerator(content_qr):
