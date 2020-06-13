@@ -135,11 +135,15 @@ def printingAvailableSlots(shopid):
     for i,j in currentDay.items():
         if(new_time<int(j['startTime'])):
             if(j['currentCapacity']<cap):
+                j['startTime'] = str(j['startTime'])
+                # j['endTime'] = str(j['endTime'])
                 available_currentDay[i] = j
 
     available_nextDay =OrderedDict()
     for i,j in nextDay.items():
         if(j['currentCapacity']<cap):
+            j['startTime'] = str(j['startTime'])
+            # j['endTime'] = str(j['endTime'])
             available_nextDay[i] = j 
 
     data_shop = db.child('shops').child(shopid).get().val()
