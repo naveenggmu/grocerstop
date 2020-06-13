@@ -31,8 +31,9 @@ def enterShopDetails(request):
         location=request.form['location']
         image=request.form['image']
         userid=request.form['id']
+        people=request.form['capacity']
         shops=db.child("shops").get()
-        db.child("shops").update({userid:{"name" : name ,"location" : location, "image": image, "people": 0}})
+        db.child("shops").update({userid:{"name" : name ,"location" : location, "image": image, "people": people}})
         to=shops.val()
         return to
 
