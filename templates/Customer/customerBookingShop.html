@@ -2,30 +2,70 @@
 
 {% block body %}
 
+<div class="jumbotron" style="margin-top: 10%;" style="background: #E6DADA; 
+background: -webkit-linear-gradient(to right, #274046, #E6DADA); 
+background: linear-gradient(to right, #274046, #E6DADA);  ">
 
-<p>YO YO YO This is the customerBookingShop</p>
 
-<p>{{ data['shop_data'] }}</p>
 
+<<<<<<< HEAD
 <p>----------------------------------</p>
 
 <p>{{data['shop_products']}}</p>
 <div class="jumbotron">
     <form action="/customerBookingShop/{{data['shopid']}}" method="post">
+=======
+    <form action="/customerBookingShopCurrentDay/{{data['shopid']}}" method="post">
+>>>>>>> 10f60f5d57bfb96e660ca54b581467040de6bee0
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Example select</label>
+            <label for="exampleFormControlSelect1">Select Slot for Today</label>
             <select class="form-control" id="exampleFormControlSelect1" name="slotOption">
-              <option value="0">6:00 am - 6:30 am</option>
-              <option value="1">6:30 am - 7:00 am</option>
-              <option value="2">7:00 am - 7:30 am</option>
-              <option value="3">7:30 am - 8:00 am</option>
-              <option value="4">8:00 am - 8:30 am</option>
-            </select>
+                {%
+                    for key,items in data['currentDay'].items():
+                        
+                    %}
+                    <option value="{{key}}">{{items['startTime']}} - {{ items['endTime']}}</option>
+                {% endfor %}
+            </select>  
         </div>
         <input type="text" class="form-control" name="custid" placeholder="Enter Customer ID">
-        <button type="submit" class="btn btn-dark">Submit</button>
+        <div class="container">
+            <div class="center">
+                <button type="submit" class="btn btn-dark" style="margin-top: 120px;">Submit</button>
+            </div>
+        </div>
     </form>
 </div>
 
-<p>Booking Status : </p>{{ data['bookingStatus']}}
+    <div class="jumbotron" style="margin-top: 10%;" style="background: #E6DADA; 
+    background: -webkit-linear-gradient(to right, #274046, #E6DADA); 
+    background: linear-gradient(to right, #274046, #E6DADA);  ">    
+    <form action="/customerBookingShopNextDay/{{data['shopid']}}" method="post">
+        <div class="form-group">
+            <label for="exampleFormControlSelect2">Select Slot for Tomorrow</label>
+            <select class="form-control" id="exampleFormControlSelect2" name="slotOption">
+                {%
+                    for key,items in data['nextDay'].items():
+                        
+                    %}
+                    <option value="{{key}}">{{items['startTime']}} - {{ items['endTime']}}</option>
+                {% endfor %}
+               
+            </select>     
+        </div>
+        <input type="text" class="form-control" name="custid" placeholder="Enter Customer ID">
+        <div class="container">
+            <div class="center">
+                <button type="submit" class="btn btn-dark" style="margin-top: 120px;">Submit</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
 {% endblock %}
+
+
+
+
+

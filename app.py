@@ -75,24 +75,47 @@ def addProd():
         return render_template('Shopkeeper/addProducts.html', data = data)            
 
 @app.route('/customerBookingShop/<shopid>',methods=['GET','POST'])
-def custBook(shopid):
-    print("Inside custBook")
-    if(request.method=='GET'):   
-        x,y = custShopBookingDisplay(shopid)
-        data = {'shop_data': y,
-                'shop_products' : x,
-                'shopid': shopid,
-                'bookingStatus': ""}
+def custbook(shopid):
+    if(request.method=='GET'):
+        currDay,nextDay,data_shop = printingAvailableSlots(shopid)
+        data = {
+            'currentDay' : currDay,
+            'nextDay' : nextDay,
+            'data_shop' : data_shop,
+            'shopid' : shopid
+        }
+        print("This is shopid ", data['shopid'])
         return render_template('Customer/customerBookingShop.html',data = data)
-    elif(request.method=='POST'):
-        print("Into elif")
-        bookingstatus(request)
-        x,y = custShopBookingDisplay(shopid)
-        data = {'shop_data': y,
-                'shop_products' : x,
-                'shopid': shopid,
-                'bookingStatus': "Updated"}
-        return render_template('Customer/customerBookingShop.html',data = data)    
+
+@app.route('/customerBookingShopCurrentDay/<shopid>',methods=['POST'])
+def func2(shopid):
+    confirmBooking(request,shopid)
+    return redirect(url_for('customerlogin'))
+  
+@app.route('/customerBookingShopNextDay/<shopid>',methods=['POST'])
+def func4(shopid):
+
+    confirmBooking2(request,shopid)
+    return redirect(url_for('customerlogin'))  
+
+# def custBook(shopid):
+#     print("Inside custBook")
+#     if(request.method=='GET'):   
+#         x,y = custShopBookingDisplay(shopid)
+#         data = {'shop_data': y,
+#                 'shop_products' : x,
+#                 'shopid': shopid,
+#                 'bookingStatus': ""}
+#         return render_template('Customer/customerBookingShop.html',data = data)
+#     elif(request.method=='POST'):
+#         print("Into elif")
+#         bookingstatus(request)
+#         x,y = custShopBookingDisplay(shopid)
+#         data = {'shop_data': y,
+#                 'shop_products' : x,
+#                 'shopid': shopid,
+#                 'bookingStatus': "Updated"}
+#         return render_template('Customer/customerBookingShop.html',data = data)    
 
 
 
@@ -104,10 +127,15 @@ def custBook(shopid):
 
 ######################################################### FOR FLUTTER ####################################################
 
-# @app.route('/flutterShopVerify',methods=['GET','POST'])
-# def func():
-#     x,y = flutterShopVerify()
+@app.route('/flutterShopVerify',methods=['POST'])
+def func():
+    info = flutterShopVerify(request)
+    return info
 
+@app.route('/flutterUserVerify',methods = ['POST'])
+def func3():
+    info = flutterUserVerify(request)
+    return info
 
 
 
