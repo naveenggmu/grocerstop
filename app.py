@@ -91,13 +91,12 @@ def custbook(shopid):
 @app.route('/customerBookingShopCurrentDay/<shopid>',methods=['POST'])
 def func2(shopid):
     confirmBooking(request,shopid)
-    return redirect(url_for('customerlogin'))
-  
+    return render_template('index.html') 
 @app.route('/customerBookingShopNextDay/<shopid>',methods=['POST'])
 def func4(shopid):
 
     confirmBooking2(request,shopid)
-    return redirect(url_for('customerlogin'))  
+    return render_template('index.html')   
 
 # def custBook(shopid):
 #     print("Inside custBook")
