@@ -3,7 +3,11 @@
 {% block body %}
   
     
-    <div class="jumbotron">
+    <div class="jumbotron" style="background: #8e9eab;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #eef2f3, #8e9eab);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #eef2f3, #8e9eab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    ">
       <div class="container">
         <div class="center">
           <form action="/customerPage" method='POST'>
@@ -33,7 +37,7 @@
               </div>
 
               <div class="flip-card-back">
-                <h1>Items available</h1>
+                <h1>Items Available</h1>
                 <p>Veggies</p>
                 <p>Fruits</p>
                 <p>Diary</p>
