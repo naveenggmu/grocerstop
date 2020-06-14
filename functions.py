@@ -215,7 +215,7 @@ def flutterUserVerify(request):
         if(x==0):
             data['status'] = True
             data['info'] = "user verified"
-            db.child('bookings').child(shopid).child("currentDay").child(slot_id).update({booking_id : 1})
+            db.child('bookings').child(shopid).child("currentDay").child(slot_id).update({key : 1})
         else:
             data['status'] = False
             data['info'] = "user already entered"
@@ -286,7 +286,7 @@ def mailGenerator(cust_id,shopid,what_day,timing):
     msg['From'] = "cudamemerror@gmail.com"
 
     msg['To'] = mail_id
-    contents = "Booking confirmed for " + shopid + " on " + date + " at " + str(timing)
+    contents = "Booking confirmed for " + shopid + " on " + date + " at " + str(timing)   
     msg.set_content(contents)
 
     with open('barcode.png','rb') as f:

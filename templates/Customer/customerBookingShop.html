@@ -1,28 +1,29 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-<div class="container">
+<div class="container" style="background-color: white;
+">
 
-<div class="container">
+<div class="container" style="margin-top: 2%;">
 
     
-        <label> Enter Customer ID:</label>
-        <input form ="todayform" onblur="document.nextform.custid.value = this.value;" type="text" class="form-control" name="custid" placeholder="Enter Customer ID">
+        <label style="text-emphasis: bold; text-shadow: #274046;"> Enter Customer ID:</label>
+        <input style="width:150px;height:40px" form ="todayform" onblur="document.nextform.custid.value = this.value;" type="text" class="form-control" name="custid" placeholder="Enter Customer ID">
     
-    <div class="jumbotron" style="margin-top: 10%;" style="background: #E6DADA; 
+    <div class="jumbotron" style="margin-top: 2%;font-weight: 500;" style="background: #E6DADA; 
 background: -webkit-linear-gradient(to right, #274046, #E6DADA); 
 background: linear-gradient(to right, #274046, #E6DADA);  ">
 
     <form id="todayform" action="/customerBookingShopCurrentDay/{{data['shopid']}}" method="post">
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Select Slot for Today</label>
+            <label style="margin-top: -3%;" for="exampleFormControlSelect1">Select Slot for Today</label>
             <br>
             <!-- <select class="form-control" id="exampleFormControlSelect1" name="slotOption"> -->
                 {% for key,items in data['currentDay'].items(): %}
                     {% if items['currentCapacity'] < data['cap']  %}
-                        <button style="background-color: green;" name="slotOption" value="{{key}}">{{items['startTime'][:2]}}:{{items['startTime'][2:]}}</button>
+                        <button class="greenButton greenTheme" style="background-color: green;" name="slotOption" value="{{key}}">{{items['startTime'][:2]}}:{{items['startTime'][2:]}}</button>
                     {% else %}
-                        <button style="background-color: red;" name="slotOption" value="{{key}}">{{items['startTime'][:2]}}:{{items['startTime'][2:]}}</button>
+                        <button class="redButton redTheme" style="background-color:rgba(194,21,21,0.7);pointer-events: none" name="slotOption" value="{{key}}" disabled>{{items['startTime'][:2]}}:{{items['startTime'][2:]}}</button>
                     {% endif %}
                 {% endfor %}
             <!-- </select>   -->
@@ -36,22 +37,22 @@ background: linear-gradient(to right, #274046, #E6DADA);  ">
     </form>
 </div>
 
-    <div class="jumbotron" style="margin-top: 10%;" style="background: #E6DADA; 
+    <div class="jumbotron" style="margin-top: -1%; font-weight: 500;" style="background: #E6DADA; 
     background: -webkit-linear-gradient(to right, #274046, #E6DADA); 
     background: linear-gradient(to right, #274046, #E6DADA);  ">    
     
     <form name="nextform" id="nextform" action="/customerBookingShopNextDay/{{data['shopid']}}" method="post">
         <div class="form-group">
 
-            <label for="exampleFormControlSelect2">Select Slot for Tomorrow</label>
+            <label style="margin-top: -3%;" for="exampleFormControlSelect2">Select Slot for Tomorrow</label>
 
             <!-- <select class="form-control" id="exampleFormControlSelect2" name="slotOption"> -->
                 <br>    
                 {% for key,items in data['nextDay'].items(): %}
                     {% if items['currentCapacity'] < data['cap']  %}
-                        <button style="background-color: green;" name="slotOption" value="{{key}}">{{items['startTime'][:2]}}:{{items['startTime'][2:]}}</button>
+                        <button class="greenButton greenTheme" style="background-color: green;" name="slotOption" value="{{key}}">{{items['startTime'][:2]}}:{{items['startTime'][2:]}}</button>
                     {% else %}
-                        <button style="background-color: red;" name="slotOption" value="{{key}}">{{items['startTime'][:2]}}:{{items['startTime'][2:]}}</button>
+                        <button class="redButton redTheme" style="background-color: rgba(194,21,21,0.7);pointer-events: none" name="slotOption" value="{{key}}" disabled>{{items['startTime'][:2]}}:{{items['startTime'][2:]}}</button>
                     {% endif %}
                 {% endfor %}
                
