@@ -9,3 +9,5 @@ One of the biggest problems in India due to COVID-19 is excessive crowding at lo
 ## Video Link
 Video of the complete working of this application : 
 https://www.youtube.com/watch?v=C_RvKiL2KFU&feature=emb_title
+
+Project Link in Devfolio : https://devfolio.co/submissions/grocerstop
